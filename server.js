@@ -9,6 +9,7 @@ mongoose
     "mongodb+srv://test:sparta@cluster0.7o347.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     }
   )
   .then(() => console.log("mongoDB CONNECTED"))
@@ -22,5 +23,11 @@ app.get("/", (req, res) => {
   res.send("WELCOME TDD WORLD");
 });
 
+app.use((error, req, res, next) => {
+  res.status(500).json({ message: error.message })
+})
+
 app.listen(PORT);
 console.log(`running! ${PORT}`);
+
+module.exports = app;
